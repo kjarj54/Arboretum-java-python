@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.arboretum_karauz_aavila_dazofeifa.controller.PrincipalViewController">
+   <right>
+      <VBox alignment="CENTER" prefWidth="150.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="200.0">
+               <children>
+                  <JFXButton fx:id="btnBuscarPartida" maxWidth="100.0" onAction="#onActionBtnBuscarPartida" text="Buscar Partida" HBox.hgrow="ALWAYS" />
+               </children></HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="75.0" prefWidth="200.0">
+               <children>
+                  <JFXButton fx:id="btnCrearPartida" maxWidth="100.0" onAction="#onActionBtnCrearPartida" text="Crear Partida" HBox.hgrow="ALWAYS" />
+               </children></HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="75.0">
+               <children>
+                  <JFXButton fx:id="btnSalir" maxWidth="100.0" onAction="#onActionSalir" text="Salir" HBox.hgrow="ALWAYS" />
+               </children></HBox>
+         </children>
+      </VBox>
+   </right>
+</BorderPane>

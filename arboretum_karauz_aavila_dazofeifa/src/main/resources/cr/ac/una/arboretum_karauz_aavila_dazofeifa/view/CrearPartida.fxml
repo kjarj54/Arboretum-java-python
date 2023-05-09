@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="cr.ac.una.arboretum_karauz_aavila_dazofeifa.controller.CrearPartidaController">
+   <children>
+      <StackPane layoutX="200.0" layoutY="77.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="75.0">
+                     <children>
+                        <Label text="Crear Partida" />
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox alignment="CENTER" spacing="15.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <JFXTextField fx:id="txtPlayer1" labelFloat="true" maxWidth="200.0" promptText="Player 1" />
+                              <JFXCheckBox fx:id="cbxPlayer1" text="Listo" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="15.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <JFXTextField fx:id="txtPlayer2" editable="false" labelFloat="true" maxWidth="200.0" promptText="Player 2" />
+                              <JFXCheckBox fx:id="cbxPlayer2" text="Listo" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox alignment="CENTER" spacing="15.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <JFXTextField fx:id="txtPlayer3" editable="false" labelFloat="true" maxWidth="200.0" promptText="Player 3" />
+                              <JFXCheckBox fx:id="cbxPlayer3" text="Listo" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="15.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <JFXTextField fx:id="txtPlayer4" editable="false" labelFloat="true" maxWidth="200.0" promptText="Player 4" />
+                              <JFXCheckBox fx:id="cbxPlayer4" text="Listo" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <JFXButton fx:id="btnCrearPartida" onAction="#onActionBtnCrearPartida" text="Crear Partida">
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>
