@@ -83,7 +83,7 @@ public class FlowController {
 
     public void goMain() {
         try {
-            this.mainStage.setScene(new Scene(FXMLLoader.load(App.class.getResource("view/PrincipalView.fxml"), this.idioma)));
+            this.mainStage.setScene(new Scene(FXMLLoader.load(App.class.getResource("view/.fxml"), this.idioma)));
             this.mainStage.show();
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, "Error inicializando la vista base.", ex);
@@ -138,8 +138,8 @@ public class FlowController {
         Controller controller = loader.getController();
         controller.initialize();
         Stage stage = new Stage();
-        stage.getIcons().add(new Image("cr/ac/una/unaplanilla3/resources/Usuario-48.png"));
-        stage.setTitle("UNA PLANILLA");
+        stage.getIcons().add(new Image("cr/ac/una/arboretum_karauz_aavila_dazofeifa/resources/Usuario-48.png"));
+        stage.setTitle("UNA Arboretum");
         stage.setOnHidden((WindowEvent event) -> {
             controller.getStage().getScene().setRoot(new Pane());
             controller.setStage(null);
@@ -158,8 +158,8 @@ public class FlowController {
         Controller controller = loader.getController();
         controller.initialize();
         Stage stage = new Stage();
-        stage.getIcons().add(new Image("cr/ac/una/unaplanilla3/resources/Usuario-48.png"));
-        stage.setTitle("UNA PLANILLA");
+        stage.getIcons().add(new Image("cr/ac/una/arboretum_karauz_aavila_dazofeifa/resources/Usuario-48.png"));
+        stage.setTitle("UNA Arboretum");
         stage.setResizable(resizable);
         stage.setOnHidden((WindowEvent event) -> {
             controller.getStage().getScene().setRoot(new Pane());
