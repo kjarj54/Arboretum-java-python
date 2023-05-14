@@ -1,6 +1,8 @@
 import socket
 import threading
 
+from Carta import Carta
+
 # Definir la dirección IP y el puerto para el servidor
 IP = "localhost"
 PORT = 8000
