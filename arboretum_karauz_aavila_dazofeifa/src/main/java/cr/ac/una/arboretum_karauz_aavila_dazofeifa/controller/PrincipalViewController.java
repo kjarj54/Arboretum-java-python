@@ -6,6 +6,7 @@
 package cr.ac.una.arboretum_karauz_aavila_dazofeifa.controller;
 
 import com.jfoenix.controls.JFXButton;
+import conexion.Conexion;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -28,13 +29,15 @@ public class PrincipalViewController extends Controller implements Initializable
     private JFXButton btnCrearPartida;
     @FXML
     private JFXButton btnSalir;
+    
+    Conexion conexion;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        conexion = new Conexion();
     }    
 
     @Override
@@ -43,10 +46,12 @@ public class PrincipalViewController extends Controller implements Initializable
 
     @FXML
     private void onActionBtnBuscarPartida(ActionEvent event) {
+        conexion.PasarTurno();
     }
 
     @FXML
     private void onActionBtnCrearPartida(ActionEvent event) {
+        conexion.recibirRespuesta();
     }
 
     @FXML
