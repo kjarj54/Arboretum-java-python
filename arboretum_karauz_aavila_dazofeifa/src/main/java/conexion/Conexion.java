@@ -19,6 +19,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import com.google.gson.Gson;
+import cr.ac.una.arboretum_karauz_aavila_dazofeifa.model.Jugador;
 
 /**
  *
@@ -56,12 +58,8 @@ public class Conexion {
             // Enviar el mensaje al servidor
             out.print(mensaje);
             out.flush();
-            recibirArchivoJSON();
-            // Leer la respuesta del servidor
-            String respuesta = in.readLine();
-            System.out.println("Respuesta del servidor: " + respuesta);
 
-            // Recibir el archivo JSON
+            recibirArchivoJSON();
         } catch (IOException e) {
             System.err.println("Error de entrada/salida al conectarse al host " + host + ":" + puerto);
             e.printStackTrace();
@@ -69,41 +67,50 @@ public class Conexion {
     }
 
     private void recibirArchivoJSON() throws IOException {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
-        StringBuilder contenido = new StringBuilder();
-        String linea;
-        while ((linea = reader.readLine()) != null) {
-            contenido.append(linea);
-        }
+//        try (BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+//        StringBuilder contenido = new StringBuilder();
+//        String linea;
+//        while ((linea = reader.readLine()) != null) {
+//            contenido.append(linea);
+//        }
+//
+//        // Decodificar el contenido recibido como JSON
+//        String contenidoDecodificado = contenido.toString();
+//        JSONObject jsonObject = (JSONObject) JSONValue.parse(contenidoDecodificado);
+        System.out.println("1");
 
-        // Decodificar el contenido recibido como JSON
-        String contenidoDecodificado = contenido.toString();
-        JSONObject jsonObject = (JSONObject) JSONValue.parse(contenidoDecodificado);
+        String jsonData = in.readLine();
+
+// Analizar el JSON utilizando Gson
+        Gson gson = new Gson();
+        System.out.println("2");
+        Jugador datos = gson.fromJson(jsonData, Jugador.class);
+        System.out.println("3");
+
+// Utilizar los datos recibidos
+        System.out.println("Nombre: " + datos.getNombre());
+        System.out.println("Puntos: " + datos.getPuntos());
 
         // Guardar el contenido decodificado en un archivo JSON
-        try (FileWriter fileWriter = new FileWriter("src/main/java/cr/ac/una/arboretum_karauz_aavila_dazofeifa/service/informacion_recibida.json")) {
-            fileWriter.write(jsonObject.toJSONString());
-        }
+//        try ( FileWriter fileWriter = new FileWriter("src/main/java/cr/ac/una/arboretum_karauz_aavila_dazofeifa/service/informacion_recibida.json")) {
+//            fileWriter.write(jsonObject.toJSONString());
+//        }
 
         System.out.println("Archivo JSON recibido y guardado.");
-    }
     }
 
     public void recibirRespuesta() {
         try {
             // Leer la respuesta del servidor
             String respuesta = in.readLine();
-            System.out.println("Respuesta del servidor: " + respuesta);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
     public void actualizarInfo() {
-
         ManejoJSON informacion = new ManejoJSON();
         jsonObject = informacion.cargarJSON();
 
     }
-
 }

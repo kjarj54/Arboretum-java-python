@@ -1,6 +1,7 @@
 import socket
 import threading
 import ujson
+import json
 from Carta import Carta
 from Partida import Partida
 
@@ -33,24 +34,31 @@ def manejar_cliente(cliente, direccion):
         try:
             # Recibir el mensaje del cliente
             mensaje = cliente.recv(1024)
+            data = {}
 
             if mensaje.decode() == "PasarTurno":
                 partida.pasarTurno()
+                data = { 'nombre': 'John', 'puntos': 30 }
                 print("Entra")
 
-            mensaje_decodificado = mensaje.decode() + "Hola Mundo\r\n"
-
-            print(mensaje_decodificado)
-
             # envio del json
-            with open('informacion.json', 'rb') as archivo:
-                contenido = archivo.read()
+            # with open('informacion.json', 'rb') as archivo:
+            #     contenido = archivo.read()
+            json_data = json.dumps(data)
 
-            contenido_codificado = ujson.dumps(ujson.loads(contenido))
+            json_data = json_data + "\r\n"
+
+            # contenido_codificado = ujson.dumps(ujson.loads(contenido))
             for c in clientes:
                 print("entro aqui o no?")
-                c.sendall(contenido_codificado)
-                # c.sendall(mensajeEditado.encode())
+                # Envía el tamaño del JSON
+                c.sendall(json_data.encode('utf-8'))  # Envía el JSON
+                print("Sigue acá?")
+                # json_dataConver = json.loads(json_data)
+                # print(json_dataConver['nombre'] + " " + json_dataConver['puntos'])
+            # c.sendall(contenido_codificado)
+            # c.sendall(mensajeEditado.encode())
+            print("Salio?")
             # if not mensaje:
             #     clientes.remove(cliente)
             #     cliente.close()
