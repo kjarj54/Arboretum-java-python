@@ -45,7 +45,7 @@ public class ManejoJSON {
         guardarJSON(jsonObject);
     }
 
-    private JSONObject cargarJSON() {
+    public JSONObject cargarJSON() {
         JSONObject loadedJSON = new JSONObject();
 
         try (FileReader fileReader = new FileReader(JSON_FILE_PATH)) {

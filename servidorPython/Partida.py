@@ -38,8 +38,7 @@ class Partida:
             self.turnoP4 = False
         print("TurnoP1" + str(self.turnoP1) + " | TurnoP2" + str(self.turnoP2) + " | TurnoP3" + str(self.turnoP3) + " | TurnoP4" + str(self.turnoP4))
 
-        
-    
+         
             
     
             

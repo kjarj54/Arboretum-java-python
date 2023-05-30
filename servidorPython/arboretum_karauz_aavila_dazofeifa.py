@@ -1,6 +1,6 @@
 import socket
 import threading
-
+import ujson
 from Carta import Carta
 from Partida import Partida
 
@@ -39,10 +39,17 @@ def manejar_cliente(cliente, direccion):
                 print("Entra")
 
             mensaje_decodificado = mensaje.decode() + "Hola Mundo\r\n"
+
             print(mensaje_decodificado)
 
+            # envio del json
+            with open('informacion.json', 'rb') as archivo:
+                contenido = archivo.read()
+
+            contenido_codificado = ujson.dumps(ujson.loads(contenido))
             for c in clientes:
-                c.sendall(mensaje_decodificado.encode())
+                print("entro aqui o no?")
+                c.sendall(contenido_codificado)
                 # c.sendall(mensajeEditado.encode())
             # if not mensaje:
             #     clientes.remove(cliente)
@@ -59,8 +66,9 @@ def manejar_cliente(cliente, direccion):
             cliente.close()
             print(f"{direccion} se ha desconectado.")
             break
-
 # Función para esperar conexiones entrantes
+
+
 def esperar_conexiones():
     while True:
         cliente, direccion = server_socket.accept()
