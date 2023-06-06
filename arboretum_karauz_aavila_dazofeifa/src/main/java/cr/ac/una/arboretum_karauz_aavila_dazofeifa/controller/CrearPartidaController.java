@@ -8,6 +8,7 @@ package cr.ac.una.arboretum_karauz_aavila_dazofeifa.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
+import conexion.Conexion;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -41,22 +42,50 @@ public class CrearPartidaController extends Controller implements Initializable 
     @FXML
     private JFXCheckBox cbxPlayer4;
     @FXML
-    private JFXButton btnCrearPartida;
+    private JFXButton btnListo;
+    @FXML
+    private JFXButton btnCrearPartida1;
+    
+    Conexion conexion;
+    int jugadorIndex;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }    
 
     @Override
     public void initialize() {
+        conexion = new Conexion();
+        jugadorIndex = Integer.parseInt(conexion.jugadorIndex());
+        
+        switch (jugadorIndex) {
+            case 1:
+                System.out.println("Opción 1 seleccionada");
+                break;
+            case 2:
+                System.out.println("Opción 2 seleccionada");
+                break;
+            case 3:
+                System.out.println("Opción 3 seleccionada");
+                break;
+            case 4:
+                System.out.println("Opción 4 seleccionada");
+                break;
+            default:
+                System.out.println("Opción inválida");
+                break;
+        }
     }
 
     @FXML
     private void onActionBtnCrearPartida(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionBtnListo(ActionEvent event) {
     }
     
 }

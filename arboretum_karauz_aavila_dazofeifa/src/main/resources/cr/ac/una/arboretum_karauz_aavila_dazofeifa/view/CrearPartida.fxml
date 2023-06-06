@@ -3,15 +3,13 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane id="AnchorPane" fx:id="root" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="cr.ac.una.arboretum_karauz_aavila_dazofeifa.controller.CrearPartidaController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.arboretum_karauz_aavila_dazofeifa.controller.CrearPartidaController">
    <children>
       <StackPane layoutX="200.0" layoutY="77.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -26,14 +24,14 @@
                      <children>
                         <VBox alignment="CENTER" spacing="15.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <JFXTextField fx:id="txtPlayer1" labelFloat="true" maxWidth="200.0" promptText="Player 1" />
-                              <JFXCheckBox fx:id="cbxPlayer1" text="Listo" />
+                              <JFXTextField fx:id="txtPlayer1" editable="false" labelFloat="true" maxWidth="200.0" promptText="Player 1" />
+                              <JFXCheckBox fx:id="cbxPlayer1" allowIndeterminate="true" disable="true" opacity="0.98" text="Listo" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" spacing="15.0" HBox.hgrow="ALWAYS">
                            <children>
                               <JFXTextField fx:id="txtPlayer2" editable="false" labelFloat="true" maxWidth="200.0" promptText="Player 2" />
-                              <JFXCheckBox fx:id="cbxPlayer2" text="Listo" />
+                              <JFXCheckBox fx:id="cbxPlayer2" disable="true" opacity="0.98" text="Listo" />
                            </children>
                         </VBox>
                      </children>
@@ -43,24 +41,25 @@
                         <VBox alignment="CENTER" spacing="15.0" HBox.hgrow="ALWAYS">
                            <children>
                               <JFXTextField fx:id="txtPlayer3" editable="false" labelFloat="true" maxWidth="200.0" promptText="Player 3" />
-                              <JFXCheckBox fx:id="cbxPlayer3" text="Listo" />
+                              <JFXCheckBox fx:id="cbxPlayer3" disable="true" opacity="0.98" text="Listo" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" spacing="15.0" HBox.hgrow="ALWAYS">
                            <children>
                               <JFXTextField fx:id="txtPlayer4" editable="false" labelFloat="true" maxWidth="200.0" promptText="Player 4" />
-                              <JFXCheckBox fx:id="cbxPlayer4" text="Listo" />
+                              <JFXCheckBox fx:id="cbxPlayer4" disable="true" opacity="0.98" text="Listo" />
                            </children>
                         </VBox>
                      </children>
                   </HBox>
                   <VBox alignment="CENTER">
                      <children>
-                        <JFXButton fx:id="btnCrearPartida" onAction="#onActionBtnCrearPartida" text="Crear Partida">
-                           <VBox.margin>
-                              <Insets bottom="5.0" top="5.0" />
-                           </VBox.margin>
-                        </JFXButton>
+                        <HBox alignment="CENTER" spacing="25.0">
+                           <children>
+                              <JFXButton fx:id="btnListo" onAction="#onActionBtnListo" text="Listo" />
+                              <JFXButton fx:id="btnCrearPartida1" onAction="#onActionBtnCrearPartida" text="Crear Partida" />
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children>

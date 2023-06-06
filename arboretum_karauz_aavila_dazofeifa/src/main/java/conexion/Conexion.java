@@ -50,6 +50,22 @@ public class Conexion {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public String jugadorIndex() {
+        try {
+            String mensaje = "jugadorIndex";
+            out.print(mensaje);
+            out.flush();
+
+            String respuesta = in.readLine();
+            System.out.println("Respuesta del servidor: " + respuesta);
+            return respuesta;
+        } catch (IOException e) {
+            System.err.println("Error de entrada/salida al conectarse al host " + host + ":" + puerto);
+            e.printStackTrace();
+        }
+        return "-1";
+    }
 
     public void PasarTurno() {
         try {
@@ -95,14 +111,23 @@ public class Conexion {
 //        try ( FileWriter fileWriter = new FileWriter("src/main/java/cr/ac/una/arboretum_karauz_aavila_dazofeifa/service/informacion_recibida.json")) {
 //            fileWriter.write(jsonObject.toJSONString());
 //        }
-
         System.out.println("Archivo JSON recibido y guardado.");
     }
 
     public void recibirRespuesta() {
         try {
             // Leer la respuesta del servidor
-            String respuesta = in.readLine();
+            String jsonData = in.readLine();
+
+            // Analizar el JSON utilizando Gson
+            Gson gson = new Gson();
+            System.out.println("2");
+            Jugador datos = gson.fromJson(jsonData, Jugador.class);
+            System.out.println("3");
+
+            // Utilizar los datos recibidos
+            System.out.println("Nombre: " + datos.getNombre());
+            System.out.println("Puntos: " + datos.getPuntos());
         } catch (IOException ex) {
             ex.printStackTrace();
         }

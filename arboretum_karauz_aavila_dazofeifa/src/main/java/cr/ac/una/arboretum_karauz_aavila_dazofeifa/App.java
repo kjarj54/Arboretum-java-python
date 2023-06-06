@@ -19,10 +19,10 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FlowController.getInstance().InitializeFlow(stage,null);
+        FlowController.getInstance().InitializeFlow(stage, null);
         stage.getIcons().add(new Image("cr/ac/una/arboretum_karauz_aavila_dazofeifa/resources/Usuario-48.png"));
         stage.setTitle("UNA Arboretum");
-        FlowController.getInstance().goViewInWindow("PrincipalView");
+        FlowController.getInstance().goMain();
     }
 
     public static void main(String[] args) {
