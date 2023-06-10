@@ -7,8 +7,8 @@ package cr.ac.una.arboretum_karauz_aavila_dazofeifa.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXTextField;
 import conexion.Conexion;
+import cr.ac.una.arboretum_karauz_aavila_dazofeifa.util.FlowController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -26,26 +26,18 @@ public class CrearPartidaController extends Controller implements Initializable 
     @FXML
     private AnchorPane root;
     @FXML
-    private JFXTextField txtPlayer1;
-    @FXML
     private JFXCheckBox cbxPlayer1;
-    @FXML
-    private JFXTextField txtPlayer2;
     @FXML
     private JFXCheckBox cbxPlayer2;
     @FXML
-    private JFXTextField txtPlayer3;
-    @FXML
     private JFXCheckBox cbxPlayer3;
-    @FXML
-    private JFXTextField txtPlayer4;
     @FXML
     private JFXCheckBox cbxPlayer4;
     @FXML
-    private JFXButton btnListo;
-    @FXML
     private JFXButton btnCrearPartida1;
-    
+    @FXML
+    private JFXButton btnSalir;
+
     Conexion conexion;
     int jugadorIndex;
 
@@ -54,30 +46,40 @@ public class CrearPartidaController extends Controller implements Initializable 
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    }    
+    }
 
     @Override
     public void initialize() {
         conexion = new Conexion();
         jugadorIndex = Integer.parseInt(conexion.jugadorIndex());
-        
-        switch (jugadorIndex) {
-            case 1:
-                System.out.println("Opción 1 seleccionada");
-                break;
-            case 2:
-                System.out.println("Opción 2 seleccionada");
-                break;
-            case 3:
-                System.out.println("Opción 3 seleccionada");
-                break;
-            case 4:
-                System.out.println("Opción 4 seleccionada");
-                break;
-            default:
-                System.out.println("Opción inválida");
-                break;
-        }
+
+//        switch (jugadorIndex) {
+//            case 0:
+//                btnCrearPartida1.setDisable(false);
+//                cbxPlayer1.setSelected(true);
+//                break;
+//            case 1:
+//                btnCrearPartida1.setDisable(true);
+//                cbxPlayer1.setSelected(true);
+//                cbxPlayer2.setSelected(true);
+//                break;
+//            case 2:
+//                btnCrearPartida1.setDisable(true);
+//                cbxPlayer1.setSelected(true);
+//                cbxPlayer3.setSelected(true);
+//                break;
+//            case 3:
+//                btnCrearPartida1.setDisable(true);
+//                cbxPlayer1.setSelected(true);
+//                cbxPlayer4.setSelected(true);
+//                break;
+//            default:
+//                System.out.println("Opción inválida");
+//                break;
+//        }
+        conexion.statusJugadores(cbxPlayer1, cbxPlayer2, cbxPlayer3, cbxPlayer4);
+        conexion.esperar(cbxPlayer1, cbxPlayer2, cbxPlayer3, cbxPlayer4);
+
     }
 
     @FXML
@@ -85,7 +87,15 @@ public class CrearPartidaController extends Controller implements Initializable 
     }
 
     @FXML
-    private void onActionBtnListo(ActionEvent event) {
+    private void onActionBtnSalir(ActionEvent event) {
+        conexion.continuarHilo = false;
+        conexion.desconeccion();
+        if (conexion.hiloEspera != null) {
+            conexion.hiloEspera.interrupt();
+            System.out.println("Salir");
+            FlowController.getInstance().goMain();
+            getStage().close();
+        }
     }
-    
+
 }

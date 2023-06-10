@@ -7,19 +7,15 @@ package conexion;
 
 import cr.ac.una.arboretum_karauz_aavila_dazofeifa.model.ManejoJSON;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import com.google.gson.Gson;
+import com.jfoenix.controls.JFXCheckBox;
 import cr.ac.una.arboretum_karauz_aavila_dazofeifa.model.Jugador;
 
 /**
@@ -34,6 +30,9 @@ public class Conexion {
     PrintWriter out;
     BufferedReader in;
     private JSONObject jsonObject;
+    public Thread hiloEspera;
+    public boolean continuarHilo = true;
+
 
     public Conexion() {
         try {
@@ -50,7 +49,7 @@ public class Conexion {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public String jugadorIndex() {
         try {
             String mensaje = "jugadorIndex";
@@ -65,6 +64,82 @@ public class Conexion {
             e.printStackTrace();
         }
         return "-1";
+    }
+
+    public void desconeccion() {
+        String mensaje = "desconeccion";
+        out.print(mensaje);
+        out.flush();
+    }
+    public void statusJugadores(JFXCheckBox cbxPlayer1, JFXCheckBox cbxPlayer2, JFXCheckBox cbxPlayer3, JFXCheckBox cbxPlayer4) {
+        try {
+            String mensaje = "statusJugadores";
+            out.print(mensaje);
+            out.flush();
+            
+            String respuesta;
+            respuesta = in.readLine();
+            System.out.println("Respuesta del servidor: " + respuesta);
+
+            String[] valores = respuesta.split(",");
+            boolean[] clientes = new boolean[valores.length];
+            for (int i = 0; i < valores.length; i++) {
+                clientes[i] = Boolean.parseBoolean(valores[i]);
+            }
+
+            // Mostrar los valores recibidos
+            for (boolean cliente : clientes) {
+                System.out.println("Valor recibido: " + cliente);
+            }
+
+            if (clientes != null) {
+                cbxPlayer1.setSelected(clientes[0]);
+                cbxPlayer2.setSelected(clientes[1]);
+                cbxPlayer3.setSelected(clientes[2]);
+                cbxPlayer4.setSelected(clientes[3]);
+            }
+        } catch (IOException e) {
+            System.err.println("Error de entrada/salida al conectarse al host " + host + ":" + puerto);
+            e.printStackTrace();
+        }
+    }
+
+    public void esperar(JFXCheckBox cbxPlayer1, JFXCheckBox cbxPlayer2, JFXCheckBox cbxPlayer3, JFXCheckBox cbxPlayer4) {
+        hiloEspera = new Thread(() -> {
+            try {
+                String respuesta;
+                while (continuarHilo) {
+                    respuesta = in.readLine();
+                    System.out.println("Respuesta del servidor: " + respuesta);
+
+                    String[] valores = respuesta.split(",");
+                    boolean[] clientes = new boolean[valores.length];
+                    for (int i = 0; i < valores.length; i++) {
+                        clientes[i] = Boolean.parseBoolean(valores[i]);
+                    }
+
+                    // Mostrar los valores recibidos
+                    for (boolean cliente : clientes) {
+                        System.out.println("Valor recibido: " + cliente);
+                    }
+
+                    if (clientes != null) {
+                        cbxPlayer1.setSelected(clientes[0]);
+                        cbxPlayer2.setSelected(clientes[1]);
+                        cbxPlayer3.setSelected(clientes[2]);
+                        cbxPlayer4.setSelected(clientes[3]);
+                    } else if ("IniciarPartida".equals(respuesta)) {
+                        System.out.println("Iniciar Partida");
+                        break;
+                    }
+                }
+            } catch (IOException e) {
+                System.err.println("Error de entrada/salida al conectarse al host " + host + ":" + puerto);
+                e.printStackTrace();
+            }
+        });
+
+        hiloEspera.start();
     }
 
     public void PasarTurno() {
@@ -100,18 +175,23 @@ public class Conexion {
 // Analizar el JSON utilizando Gson
         Gson gson = new Gson();
         System.out.println("2");
-        Jugador datos = gson.fromJson(jsonData, Jugador.class);
-        System.out.println("3");
+        Jugador datos = gson.fromJson(jsonData, Jugador.class
+        );
+        System.out.println(
+                "3");
 
 // Utilizar los datos recibidos
-        System.out.println("Nombre: " + datos.getNombre());
-        System.out.println("Puntos: " + datos.getPuntos());
+        System.out.println(
+                "Nombre: " + datos.getNombre());
+        System.out.println(
+                "Puntos: " + datos.getPuntos());
 
         // Guardar el contenido decodificado en un archivo JSON
 //        try ( FileWriter fileWriter = new FileWriter("src/main/java/cr/ac/una/arboretum_karauz_aavila_dazofeifa/service/informacion_recibida.json")) {
 //            fileWriter.write(jsonObject.toJSONString());
 //        }
-        System.out.println("Archivo JSON recibido y guardado.");
+        System.out.println(
+                "Archivo JSON recibido y guardado.");
     }
 
     public void recibirRespuesta() {
@@ -122,12 +202,16 @@ public class Conexion {
             // Analizar el JSON utilizando Gson
             Gson gson = new Gson();
             System.out.println("2");
-            Jugador datos = gson.fromJson(jsonData, Jugador.class);
-            System.out.println("3");
+            Jugador datos = gson.fromJson(jsonData, Jugador.class
+            );
+            System.out.println(
+                    "3");
 
             // Utilizar los datos recibidos
-            System.out.println("Nombre: " + datos.getNombre());
-            System.out.println("Puntos: " + datos.getPuntos());
+            System.out.println(
+                    "Nombre: " + datos.getNombre());
+            System.out.println(
+                    "Puntos: " + datos.getPuntos());
         } catch (IOException ex) {
             ex.printStackTrace();
         }

@@ -20,7 +20,9 @@ server_socket.bind((IP, PORT))
 server_socket.listen()
 
 # Lista de clientes conectados
-clientes = []
+clientes = [None, None, None, None]
+max_clientes = 4
+semaphore = threading.Semaphore(max_clientes)
 
 partida = Partida(15)
 
@@ -28,13 +30,22 @@ partida = Partida(15)
 
 
 def manejar_cliente(cliente, direccion):
+    semaphore.acquire()  # Intenta adquirir el semáforo
     # Añadir el socket del cliente a la lista de clientes
     playerIndex = -1
-    clientes.append(cliente)
-    if len(clientes) > 0 :
-        playerIndex = len(clientes)
+    for i in range(4):
+        if clientes[i] == None:
+            playerIndex = i
+            clientes[i] = cliente
+            break
 
     print(f"{direccion} se ha conectado.")
+
+    for i, cli in enumerate(clientes):
+        if cli != None and i != playerIndex:
+            DataFinal = ','.join(str(b != None) for b in clientes)
+            DataFinal = DataFinal + "\r\n"
+            cli.sendall(DataFinal.encode('utf-8'))
     while True:
         try:
             # Recibir el mensaje del cliente
@@ -55,10 +66,24 @@ def manejar_cliente(cliente, direccion):
             if mensaje.decode() == "jugadorIndex":
                 DataFinal = str(playerIndex)
                 DataFinal = DataFinal + "\r\n"
-                print("jugadorIndex")
                 cliente.sendall(DataFinal.encode('utf-8'))
-            print(DataFinal)
+
+            if mensaje.decode() == "statusJugadores":
+                DataFinal = ','.join(str(b != None) for b in clientes)
+                DataFinal = DataFinal + "\r\n"
+                cliente.sendall(DataFinal.encode('utf-8'))
+
+            if mensaje.decode() == "desconeccion":
+                clientes[playerIndex] = None
+                cliente.close()
+                for i, cli in enumerate(clientes):
+                    if cli != None and i != playerIndex:
+                        DataFinal = ','.join(str(b != None) for b in clientes)
+                        DataFinal = DataFinal + "\r\n"
+                        cli.sendall(DataFinal.encode('utf-8'))
+
             print(mensaje.decode())
+            print(DataFinal)
             # envio del json
             # with open('informacion.json', 'rb') as archivo:
             #     contenido = archivo.read()
@@ -82,8 +107,14 @@ def manejar_cliente(cliente, direccion):
             # print(f"{direccion} se ha desconectado.")
         except:
             # Si hay algún error, el cliente se ha desconectado
-            clientes.remove(cliente)
+            clientes[playerIndex] = None
             cliente.close()
+            for i, cli in enumerate(clientes):
+                if cli != None and i != playerIndex:
+                    DataFinal = ','.join(str(b != None) for b in clientes)
+                    DataFinal = DataFinal + "\r\n"
+                    cli.sendall(DataFinal.encode('utf-8'))
+            semaphore.release()  # Libera el semáforo
             print(f"{direccion} se ha desconectado.")
             break
 # Función para esperar conexiones entrantes
