@@ -63,6 +63,13 @@ def manejar_cliente(cliente, direccion):
                     c.sendall(DataFinal.encode('utf-8'))  # Envía el JSON
                 print("PasarTurno")
 
+            if mensaje.decode() == "iniciarPartida":
+                DataFinal = "iniciarPartida"
+                DataFinal = DataFinal + "\r\n"
+                for cli in clientes:
+                    if cli != None:
+                        cli.sendall(DataFinal.encode('utf-8'))
+
             if mensaje.decode() == "jugadorIndex":
                 DataFinal = str(playerIndex)
                 DataFinal = DataFinal + "\r\n"

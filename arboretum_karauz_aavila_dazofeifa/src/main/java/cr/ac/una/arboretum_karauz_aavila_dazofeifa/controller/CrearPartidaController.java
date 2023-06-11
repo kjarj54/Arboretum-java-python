@@ -52,38 +52,32 @@ public class CrearPartidaController extends Controller implements Initializable 
     public void initialize() {
         conexion = new Conexion();
         jugadorIndex = Integer.parseInt(conexion.jugadorIndex());
-
-//        switch (jugadorIndex) {
-//            case 0:
-//                btnCrearPartida1.setDisable(false);
-//                cbxPlayer1.setSelected(true);
-//                break;
-//            case 1:
-//                btnCrearPartida1.setDisable(true);
-//                cbxPlayer1.setSelected(true);
-//                cbxPlayer2.setSelected(true);
-//                break;
-//            case 2:
-//                btnCrearPartida1.setDisable(true);
-//                cbxPlayer1.setSelected(true);
-//                cbxPlayer3.setSelected(true);
-//                break;
-//            case 3:
-//                btnCrearPartida1.setDisable(true);
-//                cbxPlayer1.setSelected(true);
-//                cbxPlayer4.setSelected(true);
-//                break;
-//            default:
-//                System.out.println("Opción inválida");
-//                break;
-//        }
+        
+        switch (jugadorIndex) {
+            case 0:
+                btnCrearPartida1.setDisable(false);
+                break;
+            case 1:
+                
+                break;
+            case 2:
+                
+                break;
+            case 3:
+                
+                break;
+            default:
+                System.out.println("Opción inválida");
+                break;
+        }
+        
         conexion.statusJugadores(cbxPlayer1, cbxPlayer2, cbxPlayer3, cbxPlayer4);
         conexion.esperar(cbxPlayer1, cbxPlayer2, cbxPlayer3, cbxPlayer4);
-
     }
 
     @FXML
     private void onActionBtnCrearPartida(ActionEvent event) {
+        conexion.iniciarPartida();
     }
 
     @FXML

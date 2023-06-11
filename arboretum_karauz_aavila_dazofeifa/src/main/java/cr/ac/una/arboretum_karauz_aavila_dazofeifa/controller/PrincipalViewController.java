@@ -48,6 +48,7 @@ public class PrincipalViewController extends Controller implements Initializable
     @FXML
     private void onActionBtnCrearPartida(ActionEvent event) {
         FlowController.getInstance().goViewInWindow("CrearPartida");
+        FlowController.getInstance().salir();
     }
 
     @FXML
