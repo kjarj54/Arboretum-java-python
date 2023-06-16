@@ -55,8 +55,7 @@ def manejar_cliente(cliente, direccion):
 
             if mensaje.decode() == "PasarTurno":
                 partida.pasarTurno()
-                data = { 'nombre': 'John', 'puntos': 30 }
-                DataFinal = json.dumps(data)
+                DataFinal = str(partida.turnoP1) #Poner los demás turnos y la peticion pasarTurno,turnop1,turnop2,turnop3,turnop4
                 DataFinal = DataFinal + "\r\n"
                 for c in clientes:
                     # Envía el tamaño del JSON

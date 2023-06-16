@@ -6,6 +6,7 @@
 package cr.ac.una.arboretum_karauz_aavila_dazofeifa.controller;
 
 import com.jfoenix.controls.JFXButton;
+import conexion.Conexion;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -66,13 +67,15 @@ public class JuegoViewController extends Controller implements Initializable {
     private JFXButton btnTerminarTurno;
     @FXML
     private JFXButton btnTerminarJuego;
+    
+    Conexion conexion;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        conexion.jugando();
     }    
 
     @Override

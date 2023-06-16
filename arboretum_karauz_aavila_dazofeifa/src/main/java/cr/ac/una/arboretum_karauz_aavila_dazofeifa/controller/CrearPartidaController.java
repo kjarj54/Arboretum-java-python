@@ -38,7 +38,7 @@ public class CrearPartidaController extends Controller implements Initializable 
     @FXML
     private JFXButton btnSalir;
 
-    Conexion conexion;
+    final Conexion conexion  = new Conexion();
     int jugadorIndex;
 
     /**
@@ -50,7 +50,7 @@ public class CrearPartidaController extends Controller implements Initializable 
 
     @Override
     public void initialize() {
-        conexion = new Conexion();
+//        final Conexion conexion = new Conexion();
         jugadorIndex = Integer.parseInt(conexion.jugadorIndex());
         
         switch (jugadorIndex) {

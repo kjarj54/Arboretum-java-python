@@ -17,6 +17,7 @@ import org.json.simple.JSONObject;
 import com.google.gson.Gson;
 import com.jfoenix.controls.JFXCheckBox;
 import cr.ac.una.arboretum_karauz_aavila_dazofeifa.controller.CrearPartidaController;
+import cr.ac.una.arboretum_karauz_aavila_dazofeifa.controller.JuegoViewController;
 import cr.ac.una.arboretum_karauz_aavila_dazofeifa.model.Jugador;
 import cr.ac.una.arboretum_karauz_aavila_dazofeifa.util.FlowController;
 import javafx.application.Platform;
@@ -108,6 +109,7 @@ public class Conexion {
     }
 
     public void esperar(JFXCheckBox cbxPlayer1, JFXCheckBox cbxPlayer2, JFXCheckBox cbxPlayer3, JFXCheckBox cbxPlayer4) {
+        continuarHilo = true;
         hiloEspera = new Thread(() -> {
             try {
                 String respuesta;
@@ -139,6 +141,45 @@ public class Conexion {
                         cbxPlayer2.setSelected(clientes[1]);
                         cbxPlayer3.setSelected(clientes[2]);
                         cbxPlayer4.setSelected(clientes[3]);
+                    }
+                }
+            } catch (IOException e) {
+                System.err.println("Error de entrada/salida al conectarse al host " + host + ":" + puerto);
+                e.printStackTrace();
+            }
+        });
+
+        hiloEspera.start();
+    }
+    
+    public void jugando() {
+        continuarHilo = true;
+        hiloEspera = new Thread(() -> {
+            try {
+                String respuesta;
+                while (continuarHilo) {
+                    respuesta = in.readLine();
+                    System.out.println("Respuesta del servidor: " + respuesta);
+
+                    if ("finalizarPartida".equals(respuesta)) {
+                        System.out.println("Finalizar Partida");
+                        Platform.runLater(() -> {
+                            JuegoViewController juegoViewController = (JuegoViewController) FlowController.getInstance().getController("JuegoView");
+                            juegoViewController.getStage().close();
+                        });
+                        continuarHilo = false;
+                    } else {
+                        String[] valores = respuesta.split(",");
+                        boolean[] clientes = new boolean[valores.length];
+                        for (int i = 0; i < valores.length; i++) {
+                            clientes[i] = Boolean.parseBoolean(valores[i]);
+                        }
+
+                        // Mostrar los valores recibidos
+                        for (boolean cliente : clientes) {
+                            System.out.println("Valor recibido: " + cliente);
+                        }
+
                     }
                 }
             } catch (IOException e) {
