@@ -108,7 +108,7 @@ public class Conexion {
         }
     }
 
-    public void esperar(JFXCheckBox cbxPlayer1, JFXCheckBox cbxPlayer2, JFXCheckBox cbxPlayer3, JFXCheckBox cbxPlayer4) {
+    public void esperar(JFXCheckBox cbxPlayer1, JFXCheckBox cbxPlayer2, JFXCheckBox cbxPlayer3, JFXCheckBox cbxPlayer4, int jugadorIndex) {
         continuarHilo = true;
         hiloEspera = new Thread(() -> {
             try {
@@ -120,7 +120,10 @@ public class Conexion {
                     if ("iniciarPartida".equals(respuesta)) {
                         System.out.println("Iniciar Partida");
                         Platform.runLater(() -> {
+                            JuegoViewController juegoViewController = (JuegoViewController) FlowController.getInstance().getController("JuegoView");
+                            juegoViewController.cargarDatosIniciales(this, jugadorIndex);
                             FlowController.getInstance().goViewInWindow("JuegoView");
+                            
                             CrearPartidaController crearPartidaController = (CrearPartidaController) FlowController.getInstance().getController("CrearPartida");
                             crearPartidaController.getStage().close();
                         });

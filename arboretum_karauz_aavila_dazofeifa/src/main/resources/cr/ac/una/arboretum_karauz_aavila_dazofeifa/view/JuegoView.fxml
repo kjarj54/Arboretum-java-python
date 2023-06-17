@@ -11,66 +11,18 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.arboretum_karauz_aavila_dazofeifa.controller.JuegoViewController">
-   <top>
-      <VBox alignment="CENTER" prefHeight="150.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox alignment="TOP_CENTER">
-               <children>
-                  <Label fx:id="lbPlayer1" text="Player 1" />
-                  <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <HBox fx:id="contCartasPlayer1" HBox.hgrow="ALWAYS" />
-                        <HBox alignment="CENTER">
-                           <children>
-                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                                 <children>
-                                    <Label text="Tiempo Restante" />
-                                    <Label fx:id="lbTemporizador" text="30:00" />
-                                    <JFXButton fx:id="btnTerminarTurno" onAction="#onActionBtnTerminarTurno" text="Terminar Turno" />
-                                    <JFXButton fx:id="btnTerminarJuego" onAction="#onActionBtnTerminarJuego" text="Terminar Juego" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </children>
-      </VBox>
-   </top>
-   <left>
-      <VBox alignment="CENTER" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox alignment="TOP_CENTER">
-               <children>
-                  <Label fx:id="lbPlayer4" text="Player 4" />
-               </children>
-            </VBox>
-            <VBox fx:id="contCartasPlayer4" VBox.vgrow="ALWAYS" />
-         </children>
-      </VBox>
-   </left>
-   <right>
-      <VBox alignment="CENTER" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox alignment="TOP_CENTER">
-               <children>
-                  <Label fx:id="lbPlayer2" text="Player 2" />
-               </children>
-            </VBox>
-            <VBox fx:id="contCartasPlayer2" VBox.vgrow="ALWAYS" />
-         </children>
-      </VBox>
-   </right>
    <bottom>
       <VBox alignment="CENTER" prefHeight="150.0" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="TOP_CENTER">
                <children>
-                  <Label fx:id="lbPlayer3" text="Player 3" />
+                  <Label fx:id="lbPlayer" text="Player 3" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_RIGHT">
+               <children>
+                  <JFXButton fx:id="btnTerminarTurno" onAction="#onActionBtnTerminarTurno" text="Terminar Turno" />
                </children>
             </VBox>
             <HBox fx:id="contCartasPlayer3" VBox.vgrow="ALWAYS" />
@@ -78,9 +30,9 @@
       </VBox>
    </bottom>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane BorderPane.alignment="CENTER">
          <children>
-            <StackPane fx:id="stpPlayer1" maxHeight="400.0" maxWidth="600.0" prefHeight="400.0" prefWidth="600.0">
+            <StackPane fx:id="stpPlayer1" maxHeight="400.0" maxWidth="800.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <GridPane fx:id="gpTablaPlayer1">
                     <columnConstraints>
@@ -96,7 +48,7 @@
                   </GridPane>
                </children>
             </StackPane>
-            <StackPane fx:id="stpPlayer2" maxHeight="400.0" maxWidth="600.0" prefHeight="400.0" prefWidth="600.0">
+            <StackPane fx:id="stpPlayer2" maxHeight="400.0" maxWidth="800.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <GridPane fx:id="gpTablaPlayer2">
                      <columnConstraints>
@@ -112,7 +64,7 @@
                   </GridPane>
                </children>
             </StackPane>
-            <StackPane fx:id="stpPlayer3" maxHeight="400.0" maxWidth="600.0" prefHeight="400.0" prefWidth="600.0">
+            <StackPane fx:id="stpPlayer3" maxHeight="400.0" maxWidth="800.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <GridPane fx:id="gpTablaPlayer3">
                      <columnConstraints>
@@ -128,7 +80,7 @@
                   </GridPane>
                </children>
             </StackPane>
-            <StackPane fx:id="stpPlayer4" maxHeight="400.0" maxWidth="600.0" prefHeight="400.0" prefWidth="600.0">
+            <StackPane fx:id="stpPlayer4" maxHeight="400.0" maxWidth="800.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <GridPane fx:id="gpTablaPlayer4">
                      <columnConstraints>
@@ -147,4 +99,39 @@
          </children>
       </AnchorPane>
    </center>
+   <top>
+      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="Tiempo Restante" />
+                        <Label fx:id="lbTemporizador" text="30:00" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="Turno" />
+                        <Label fx:id="lbTurno" text="....." />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <JFXButton fx:id="btnTerminarJuego" onAction="#onActionBtnTerminarJuego" text="Terminar Juego" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
 </BorderPane>

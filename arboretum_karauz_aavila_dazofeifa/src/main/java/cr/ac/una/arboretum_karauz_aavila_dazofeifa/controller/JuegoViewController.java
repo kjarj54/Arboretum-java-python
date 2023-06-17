@@ -26,25 +26,15 @@ import javafx.scene.layout.VBox;
 public class JuegoViewController extends Controller implements Initializable {
 
     @FXML
-    private Label lbPlayer1;
-    @FXML
-    private HBox contCartasPlayer1;
-    @FXML
     private StackPane stpPlayer1;
     @FXML
     private GridPane gpTablaPlayer1;
     
     @FXML
-    private Label lbPlayer2;
-    @FXML
-    private VBox contCartasPlayer2;
-    @FXML
     private StackPane stpPlayer2;
     @FXML
     private GridPane gpTablaPlayer2;
     
-    @FXML
-    private Label lbPlayer3;
     @FXML
     private HBox contCartasPlayer3;
     @FXML
@@ -53,14 +43,14 @@ public class JuegoViewController extends Controller implements Initializable {
     private GridPane gpTablaPlayer3;
     
     @FXML
-    private Label lbPlayer4;
-    @FXML
-    private VBox contCartasPlayer4;
-    @FXML
     private StackPane stpPlayer4;
     @FXML
-    private GridPane gpTablaPlayer4;
+    private GridPane gpTablaPlayer4;  
     
+    @FXML
+    private Label lbTurno;
+    @FXML
+    private Label lbPlayer;
     @FXML
     private Label lbTemporizador;
     @FXML
@@ -69,17 +59,35 @@ public class JuegoViewController extends Controller implements Initializable {
     private JFXButton btnTerminarJuego;
     
     Conexion conexion;
+    boolean miTurno;
+    int jugadorIndex;
+    
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        conexion.jugando();
     }    
 
     @Override
     public void initialize() {
+    }
+    
+    public void cargarDatosIniciales(Conexion conexion, int jugadorIndex) {
+        this.conexion = conexion;
+        this.jugadorIndex = jugadorIndex;
+        
+        if(jugadorIndex == 0) {
+            miTurno = true;
+        } else {
+            miTurno = false;
+        }
+        
+        lbTurno.setText("Player 1");
+        lbPlayer.setText("Player " + (jugadorIndex+1));
+        btnTerminarTurno.setDisable(!miTurno);
+        conexion.jugando();
     }
 
     @FXML
