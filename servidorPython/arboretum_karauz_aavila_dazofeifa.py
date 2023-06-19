@@ -55,11 +55,11 @@ def manejar_cliente(cliente, direccion):
 
             if mensaje.decode() == "PasarTurno":
                 partida.pasarTurno()
-                DataFinal = str(partida.turnoP1) #Poner los demás turnos y la peticion pasarTurno,turnop1,turnop2,turnop3,turnop4
+                DataFinal = "PasarTurno,"+str(partida.turnoP1)+","+str(partida.turnoP2)+","+str(partida.turnoP3)+","+str(partida.turnoP4) #Poner los demás turnos y la peticion pasarTurno,turnop1,turnop2,turnop3,turnop4
                 DataFinal = DataFinal + "\r\n"
                 for c in clientes:
-                    # Envía el tamaño del JSON
-                    c.sendall(DataFinal.encode('utf-8'))  # Envía el JSON
+                    if c != None:
+                        c.sendall(DataFinal.encode('utf-8'))
                 print("PasarTurno")
 
             if mensaje.decode() == "iniciarPartida":

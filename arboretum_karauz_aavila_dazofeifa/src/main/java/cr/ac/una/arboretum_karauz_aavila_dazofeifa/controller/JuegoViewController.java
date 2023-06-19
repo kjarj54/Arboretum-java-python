@@ -59,8 +59,8 @@ public class JuegoViewController extends Controller implements Initializable {
     private JFXButton btnTerminarJuego;
     
     Conexion conexion;
-    boolean miTurno;
-    int jugadorIndex;
+    public boolean miTurno;
+    public int jugadorIndex;
     
 
     /**
@@ -89,9 +89,21 @@ public class JuegoViewController extends Controller implements Initializable {
         btnTerminarTurno.setDisable(!miTurno);
         conexion.jugando();
     }
+    
+    public void actualizarInterfaz(boolean[] clientes) {
+        int player = 0;
+        for(int i = 0; i < clientes.length; i++) {
+            if(clientes[i] == true) {
+                player = i;
+            }
+        }
+        lbTurno.setText("Player " + (player+1));
+        btnTerminarTurno.setDisable(!miTurno);
+    }
 
     @FXML
     private void onActionBtnTerminarTurno(ActionEvent event) {
+        conexion.PasarTurno();
     }
 
     @FXML

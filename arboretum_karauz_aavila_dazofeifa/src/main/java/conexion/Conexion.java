@@ -123,7 +123,7 @@ public class Conexion {
                             JuegoViewController juegoViewController = (JuegoViewController) FlowController.getInstance().getController("JuegoView");
                             juegoViewController.cargarDatosIniciales(this, jugadorIndex);
                             FlowController.getInstance().goViewInWindow("JuegoView");
-                            
+
                             CrearPartidaController crearPartidaController = (CrearPartidaController) FlowController.getInstance().getController("CrearPartida");
                             crearPartidaController.getStage().close();
                         });
@@ -154,7 +154,7 @@ public class Conexion {
 
         hiloEspera.start();
     }
-    
+
     public void jugando() {
         continuarHilo = true;
         hiloEspera = new Thread(() -> {
@@ -164,18 +164,24 @@ public class Conexion {
                     respuesta = in.readLine();
                     System.out.println("Respuesta del servidor: " + respuesta);
 
-                    if ("finalizarPartida".equals(respuesta)) {
+                    String[] valores = respuesta.split(",");
+
+                    // Mostrar los valores recibidos
+                    for (String cliente : valores) {
+                        System.out.println("Valor recibido STRING: " + cliente);
+                    }
+
+                    if ("finalizarPartida".equals(valores[0])) {
                         System.out.println("Finalizar Partida");
                         Platform.runLater(() -> {
                             JuegoViewController juegoViewController = (JuegoViewController) FlowController.getInstance().getController("JuegoView");
                             juegoViewController.getStage().close();
                         });
                         continuarHilo = false;
-                    } else {
-                        String[] valores = respuesta.split(",");
-                        boolean[] clientes = new boolean[valores.length];
-                        for (int i = 0; i < valores.length; i++) {
-                            clientes[i] = Boolean.parseBoolean(valores[i]);
+                    } else if ("PasarTurno".equals(valores[0])) {
+                        boolean[] clientes = new boolean[valores.length - 1];
+                        for (int i = 0; i < valores.length - 1; i++) {
+                            clientes[i] = Boolean.parseBoolean(valores[i + 1]);
                         }
 
                         // Mostrar los valores recibidos
@@ -183,6 +189,13 @@ public class Conexion {
                             System.out.println("Valor recibido: " + cliente);
                         }
 
+                        Platform.runLater(() -> {
+                            JuegoViewController juegoViewController = (JuegoViewController) FlowController.getInstance().getController("JuegoView");
+                            if (clientes[juegoViewController.jugadorIndex]) {
+                                juegoViewController.miTurno = true;
+                            }
+                            juegoViewController.actualizarInterfaz(clientes);
+                        });
                     }
                 }
             } catch (IOException e) {
@@ -201,18 +214,10 @@ public class Conexion {
     }
 
     public void PasarTurno() {
-        try {
-            String mensaje = "PasarTurno";
-
-            // Enviar el mensaje al servidor
-            out.print(mensaje);
-            out.flush();
-
-            recibirArchivoJSON();
-        } catch (IOException e) {
-            System.err.println("Error de entrada/salida al conectarse al host " + host + ":" + puerto);
-            e.printStackTrace();
-        }
+        String mensaje = "PasarTurno";
+        // Enviar el mensaje al servidor
+        out.print(mensaje);
+        out.flush();
     }
 
     private void recibirArchivoJSON() throws IOException {
