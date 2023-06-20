@@ -54,8 +54,22 @@ def manejar_cliente(cliente, direccion):
             DataFinal = ""
 
             if mensaje.decode() == "PasarTurno":
-                partida.pasarTurno(clientes[0],clientes[1], clientes[2], clientes[3])
-                DataFinal = "PasarTurno,"+str(partida.turnoP1)+","+str(partida.turnoP2)+","+str(partida.turnoP3)+","+str(partida.turnoP4) #Poner los demás turnos y la peticion pasarTurno,turnop1,turnop2,turnop3,turnop4
+                partida.pasarTurno(clientes)
+                turnoP1 = False
+                turnoP2 = False
+                turnoP3 = False
+                turnoP4 = False
+
+                if partida.turno_actual == 0:
+                    turnoP1 = True
+                elif partida.turno_actual == 1:
+                    turnoP2 = True
+                elif partida.turno_actual == 2:
+                    turnoP3 = True
+                elif partida.turno_actual == 3:
+                    turnoP4 = True
+
+                DataFinal = "PasarTurno,"+str(turnoP1)+","+str(turnoP2)+","+str(turnoP3)+","+str(turnoP4)
                 DataFinal = DataFinal + "\r\n"
                 for c in clientes:
                     if c != None:
@@ -90,29 +104,7 @@ def manejar_cliente(cliente, direccion):
 
             print(mensaje.decode())
             print(DataFinal)
-            # envio del json
-            # with open('informacion.json', 'rb') as archivo:
-            #     contenido = archivo.read()
-
-            # contenido_codificado = ujson.dumps(ujson.loads(contenido))
-            # for c in clientes:
-                # Envía el tamaño del JSON
-                # c.sendall(DataFinal.encode('utf-8'))  # Envía el JSON
-                # json_dataConver = json.loads(json_data)
-                # print(json_dataConver['nombre'] + " " + json_dataConver['puntos'])
-            # c.sendall(contenido_codificado)
-            # c.sendall(mensajeEditado.encode())
-            # if not mensaje:
-            #     clientes.remove(cliente)
-            #     cliente.close()
-            #     print(f"{direccion} se ha desconectado.")
-            #     break
-            # Enviar el mensaje a todos los clientes
-
-            # cliente.close()
-            # print(f"{direccion} se ha desconectado.")
         except:
-            # Si hay algún error, el cliente se ha desconectado
             clientes[playerIndex] = None
             cliente.close()
             for i, cli in enumerate(clientes):
@@ -123,17 +115,14 @@ def manejar_cliente(cliente, direccion):
             semaphore.release()  # Libera el semáforo
             print(f"{direccion} se ha desconectado.")
             break
-# Función para esperar conexiones entrantes
 
 
 def esperar_conexiones():
     while True:
         cliente, direccion = server_socket.accept()
-        # Crear un hilo para manejar las conexiones entrantes de este cliente
         thread_cliente = threading.Thread(
             target=manejar_cliente, args=(cliente, direccion))
         thread_cliente.start()
 
 
-# Iniciar la función para esperar conexiones entrantes
 esperar_conexiones()

@@ -8,60 +8,56 @@ class Partida:
         self.mazo_general = []
         self.jugadores = []
         self.duracion = duracion_partida
-        self.turnoP1 = True
-        self.turnoP2 = False
-        self.turnoP3 = False
-        self.turnoP4 = False
+        self.turno_actual = 0
 
     def crearCartas(self):
-        mi_carta1 = Carta("corazones", 1)
-        mi_carta2 = Carta("corazones", 2)
-        mi_carta3 = Carta("corazones", 3)
-        mi_carta4 = Carta("corazones", 4)
-        mi_carta5 = Carta("corazones", 5)
-        mi_carta6 = Carta("corazones", 6)
-        mi_carta7 = Carta("corazones", 7)
-        mi_carta8 = Carta("corazones", 8)
-    
-    def pasarTurno(self, cliente1, cliente2, cliente3, cliente4):
-        if(self.turnoP1 and cliente2 == True):
-            self.turnoP2 = True
-            self.turnoP1 = False
-        elif(self.turnoP1 and cliente2 == False and cliente3 == True):
-            self.turnoP3 = True
-            self.turnoP1 = False
-        elif(self.turnoP1 and cliente2 == False and cliente3 == False and cliente4==True):
-            self.turnoP4 = True
-            self.turnoP1 = False
-        elif(self.turnoP2 and cliente3 == True):
-            self.turnoP3 = True
-            self.turnoP2 = False
-        elif(self.turnoP2 and cliente3 == False and cliente4 == True):
-            self.turnoP4 = True
-            self.turnoP2 = False
-        elif(self.turnoP2 and cliente3 == False and cliente4 == False and cliente1==True):
-            self.turnoP1 = True
-            self.turnoP2 = False
-        elif(self.turnoP3 and cliente4 == True):
-            self.turnoP4 = True
-            self.turnoP3 = False
-        elif(self.turnoP3 and cliente4 == False and cliente1 == True):
-            self.turnoP1 = True
-            self.turnoP3 = False
-        elif(self.turnoP3 and cliente4 == False and cliente1 == False and cliente2==True):
-            self.turnoP2 = True
-            self.turnoP3 = False
-        elif(self.turnoP4 and cliente1 == True):
-            self.turnoP1 = True
-            self.turnoP4 = False
-        elif(self.turnoP4 and cliente1 == False and cliente2 == True):
-            self.turnoP2 = True
-            self.turnoP4 = False
-        elif(self.turnoP4 and cliente1 == False and cliente2 == False and cliente3==True):
-            self.turnoP3 = True
-            self.turnoP4 = False
-        print("TurnoP1" + str(self.turnoP1) + " | TurnoP2" + str(self.turnoP2) + " | TurnoP3" + str(self.turnoP3) + " | TurnoP4" + str(self.turnoP4))
+        mazoAzul = []
+        for i in range(1, 9):
+            mazoAzul.append(Carta("Azul", i))
+        
+        mazoRojo = []
+        for i in range(1, 9):
+            mazoRojo.append(Carta("Rojo", i))
 
+        mazoVerde = []
+        for i in range(1, 9):
+            mazoVerde.append(Carta("Verde", i))
+
+        mazoAmarillo = []
+        for i in range(1, 9):
+            mazoAmarillo.append(Carta("Amarillo", i))
+
+        mazoRosado = []
+        for i in range(1, 9):
+            mazoRosado.append(Carta("Rosado", i))
+
+        mazoMorado = []
+        for i in range(1, 9):
+            mazoMorado.append(Carta("Morado", i))
+
+        mazoNaranja = []
+        for i in range(1, 9):
+            mazoNaranja.append(Carta("Naranja", i))
+
+        mazoCeleste = []
+        for i in range(1, 9):
+            mazoCeleste.append(Carta("Celeste", i))
+
+        mazoCafe = []
+        for i in range(1, 9):
+            mazoCafe.append(Carta("Cafe", i))
+
+        mazoAqua = []
+        for i in range(1, 9):
+            mazoAqua.append(Carta("Aqua", i))
+
+        self.mazo_general.append()
+    
+    def pasarTurno(self, clientes):
+        while True:
+            self.turno_actual = (self.turno_actual + 1) % len(clientes)
+            if clientes[self.turno_actual] != None:
+                break
          
             
     
