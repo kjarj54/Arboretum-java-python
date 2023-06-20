@@ -23,18 +23,42 @@ class Partida:
         mi_carta7 = Carta("corazones", 7)
         mi_carta8 = Carta("corazones", 8)
     
-    def pasarTurno(self):
-        if(self.turnoP1):
+    def pasarTurno(self, cliente1, cliente2, cliente3, cliente4):
+        if(self.turnoP1 and cliente2 == True):
             self.turnoP2 = True
             self.turnoP1 = False
-        elif(self.turnoP2):
+        elif(self.turnoP1 and cliente2 == False and cliente3 == True):
+            self.turnoP3 = True
+            self.turnoP1 = False
+        elif(self.turnoP1 and cliente2 == False and cliente3 == False and cliente4==True):
+            self.turnoP4 = True
+            self.turnoP1 = False
+        elif(self.turnoP2 and cliente3 == True):
             self.turnoP3 = True
             self.turnoP2 = False
-        elif(self.turnoP3):
+        elif(self.turnoP2 and cliente3 == False and cliente4 == True):
+            self.turnoP4 = True
+            self.turnoP2 = False
+        elif(self.turnoP2 and cliente3 == False and cliente4 == False and cliente1==True):
+            self.turnoP1 = True
+            self.turnoP2 = False
+        elif(self.turnoP3 and cliente4 == True):
             self.turnoP4 = True
             self.turnoP3 = False
-        elif(self.turnoP4):
+        elif(self.turnoP3 and cliente4 == False and cliente1 == True):
             self.turnoP1 = True
+            self.turnoP3 = False
+        elif(self.turnoP3 and cliente4 == False and cliente1 == False and cliente2==True):
+            self.turnoP2 = True
+            self.turnoP3 = False
+        elif(self.turnoP4 and cliente1 == True):
+            self.turnoP1 = True
+            self.turnoP4 = False
+        elif(self.turnoP4 and cliente1 == False and cliente2 == True):
+            self.turnoP2 = True
+            self.turnoP4 = False
+        elif(self.turnoP4 and cliente1 == False and cliente2 == False and cliente3==True):
+            self.turnoP3 = True
             self.turnoP4 = False
         print("TurnoP1" + str(self.turnoP1) + " | TurnoP2" + str(self.turnoP2) + " | TurnoP3" + str(self.turnoP3) + " | TurnoP4" + str(self.turnoP4))
 

@@ -1,6 +1,6 @@
 import socket
 import threading
-import ujson
+#import ujson
 import json
 
 from Carta import Carta
@@ -54,7 +54,7 @@ def manejar_cliente(cliente, direccion):
             DataFinal = ""
 
             if mensaje.decode() == "PasarTurno":
-                partida.pasarTurno()
+                partida.pasarTurno(clientes[0],clientes[1], clientes[2], clientes[3])
                 DataFinal = "PasarTurno,"+str(partida.turnoP1)+","+str(partida.turnoP2)+","+str(partida.turnoP3)+","+str(partida.turnoP4) #Poner los demás turnos y la peticion pasarTurno,turnop1,turnop2,turnop3,turnop4
                 DataFinal = DataFinal + "\r\n"
                 for c in clientes:

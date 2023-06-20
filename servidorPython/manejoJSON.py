@@ -3,7 +3,7 @@ class menejoJSON:
     
     def envioJSON():
         #envio del json
-        with open('infotmacion.json', 'rb') as archivo:
+        with open('informacion.json', 'rb') as archivo:
             contenido = archivo.read()
             
         
