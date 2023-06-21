@@ -37,6 +37,24 @@ public class Conexion {
     public Thread hiloEspera;
     public boolean continuarHilo = true;
 
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public int getPuerto() {
+        return puerto;
+    }
+
+    public void setPuerto(int puerto) {
+        this.puerto = puerto;
+    }
+    
+    
+
     public Conexion() {
         try {
             // Crear un socket para conectarse al servidor
