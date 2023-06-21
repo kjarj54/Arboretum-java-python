@@ -7,7 +7,7 @@ from Carta import Carta
 from Partida import Partida
 
 # Definir la dirección IP y el puerto para el servidor
-IP = "localhost"
+IP = "192.168.56.1"
 PORT = 8000
 
 # Crear un objeto de socket

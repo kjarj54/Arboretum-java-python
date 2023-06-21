@@ -22,7 +22,7 @@ public class App extends Application {
         FlowController.getInstance().InitializeFlow(stage, null);
         stage.getIcons().add(new Image("cr/ac/una/arboretum_karauz_aavila_dazofeifa/resources/Usuario-48.png"));
         stage.setTitle("UNA Arboretum");
-        FlowController.getInstance().goMain();
+        FlowController.getInstance().goViewInWindow("ConexionView");
     }
 
     public static void main(String[] args) {

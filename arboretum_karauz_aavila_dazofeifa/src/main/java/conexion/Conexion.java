@@ -19,6 +19,7 @@ import com.jfoenix.controls.JFXCheckBox;
 import cr.ac.una.arboretum_karauz_aavila_dazofeifa.controller.CrearPartidaController;
 import cr.ac.una.arboretum_karauz_aavila_dazofeifa.controller.JuegoViewController;
 import cr.ac.una.arboretum_karauz_aavila_dazofeifa.model.Jugador;
+import cr.ac.una.arboretum_karauz_aavila_dazofeifa.util.AppContext;
 import cr.ac.una.arboretum_karauz_aavila_dazofeifa.util.FlowController;
 import javafx.application.Platform;
 
@@ -28,33 +29,16 @@ import javafx.application.Platform;
  */
 public class Conexion {
 
-    String host = "localhost";
-    int puerto = 8000;
+    String host = (String)AppContext.getInstance().get("IP");
+    String puertoString = (String)AppContext.getInstance().get("Puerto");
+    int puerto = Integer.parseInt(puertoString);
     Socket socket;
     PrintWriter out;
     BufferedReader in;
     private JSONObject jsonObject;
     public Thread hiloEspera;
-    public boolean continuarHilo = true;
-
-    public String getHost() {
-        return host;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    public int getPuerto() {
-        return puerto;
-    }
-
-    public void setPuerto(int puerto) {
-        this.puerto = puerto;
-    }
-    
-    
-
+    public boolean continuarHilo = true;  
+   
     public Conexion() {
         try {
             // Crear un socket para conectarse al servidor
